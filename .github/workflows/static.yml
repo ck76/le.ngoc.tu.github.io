@@ -1,0 +1,52 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install pnpm globally
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Install dependencies using pnpm
+      - name: Install dependencies
+        run: pnpm i
+
+      # Build the project using Vite (assuming "pnpm run build" is the correct command)
+      - name: Build project
+        run: pnpm run build
+
+      # Setup Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # Upload artifact from the Vite's default build directory (typically "dist")
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Change this to your build directory if different
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
