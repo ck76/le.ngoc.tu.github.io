@@ -7,7 +7,7 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ startDate }) => {
     const [duration, setDuration] = useState('');
-    const [format, setFormat] = useState('days');
+    const [format, setFormat] = useState('seconds');
     const [buttonText, setButtonText] = useState('Tú là đồ ngốc.');
 
     useEffect(() => {
