@@ -8,6 +8,7 @@ interface TimerProps {
 const Timer: React.FC<TimerProps> = ({ startDate }) => {
     const [duration, setDuration] = useState('');
     const [format, setFormat] = useState('days');
+    const [buttonText, setButtonText] = useState('Tú là đồ ngốc.');
 
     useEffect(() => {
         const calculateDuration = () => {
@@ -46,15 +47,28 @@ const Timer: React.FC<TimerProps> = ({ startDate }) => {
         setFormat(formats[nextFormatIndex]);
     };
 
+    const toggleButtonText = () => {
+        setButtonText((prevText) =>
+            prevText === 'Tú là đồ ngốc.' ? 'Tú ngu hơn Kun.' : 'Tú là đồ ngốc.'
+        );
+    };
+
+    const toggleClick = () => {
+        toggleFormat();
+        toggleButtonText();
+    }
+
     return (
-        <div className="text-white text-center">
-            <h1 className="text-4xl mb-4">We have been together for:</h1>
-            <p className="text-2xl mb-4">{duration}</p>
+        <div className="absolute bottom-10 text-white text-center ">
+            <h1 className="text-4xl mb-4 text-white text-opacity-75">We have been together for:</h1>
+            <p className="text-2xl mb-4 text-white  text-opacity-75">{duration}</p>
             <button
-                className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-700"
-                onClick={toggleFormat}
+                className="px-4 py-2 border border-white rounded
+                hover:bg-gray-100 hover:bg-opacity-25
+                hover:text-black transition duration-300 text-opacity-75"
+                onClick={toggleClick}
             >
-                Toggle Format
+                {buttonText}
             </button>
         </div>
     );
