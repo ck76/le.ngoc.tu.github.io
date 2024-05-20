@@ -4,6 +4,8 @@ const nextConfig = {
     images: {
         unoptimized: true
     },
+    basePath: '/le.ngoc.tu.github.io',
+    assetPrefix: '/le.ngoc.tu.github.io'
 };
 
 export default nextConfig;
