@@ -32,9 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # Build the project and export it to static HTML
-      - name: Build and export project
-        run: pnpm run export
+      # Build the project
+      - name: Build project
+        run: pnpm run build
 
       # Setup Pages
       - name: Setup Pages
